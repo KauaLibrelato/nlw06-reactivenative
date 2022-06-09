@@ -5,5 +5,6 @@ export const styles = StyleSheet.create({
     minHeight: 120,
     minWidth: 120,
     paddingLeft: 24,
+    
   },
 });
