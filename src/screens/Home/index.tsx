@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FlatList, View, Text } from "react-native";
+import { FlatList, View, Text, ScrollView } from "react-native";
 import { ButtonAdd } from "../../components/ButtonAdd";
 import { CategorySelect } from "../../components/CategorySelect";
 import { ListHeader } from "../../components/ListHeader";
@@ -42,7 +42,7 @@ export function Home() {
       description:
         "É hoje que vamos chegar ao challenger sem perder uma partida da md10",
     },
-  ];
+   ];
 
    function handleCategorySelect(categoryId: string) {
     categoryId === category ? setCategory("") : setCategory(categoryId);
@@ -59,6 +59,7 @@ export function Home() {
 
   return (
     <Background>
+
       <View style={styles.header}>
         <Profile />
         <ButtonAdd 
@@ -71,9 +72,10 @@ export function Home() {
           setCategory={handleCategorySelect}
         />
 
-        <View style={styles.content}>
           <ListHeader title="Partidas agendadas" subtitle="Total 6" />
-          <FlatList
+        
+      </View>
+      <FlatList
             data={appoinments}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
@@ -83,11 +85,10 @@ export function Home() {
             )}
 
             ItemSeparatorComponent={() => <ListDivider />}
+            contentContainerStyle={{paddingBottom:69}}
             style={styles.matches}
             showsVerticalScrollIndicator={false}
           />
-        </View>
-      </View>
     </Background>
   );
 }
