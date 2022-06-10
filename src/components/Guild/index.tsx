@@ -1,52 +1,44 @@
-import React from 'react';
+import React from "react";
 
-import {TouchableOpacity, TouchableOpacityProps, View, Text} from 'react-native';
-import {GuildIcon} from '../GuildIcon'
-import {Feather} from '@expo/vector-icons'
+import {
+  TouchableOpacity,
+  TouchableOpacityProps,
+  View,
+  Text,
+} from "react-native";
+import { GuildIcon } from "../GuildIcon";
+import { Feather } from "@expo/vector-icons";
 
-import { styles } from './styles';
-import { theme } from '../../global/theme';
+import { styles } from "./styles";
+import { theme } from "../../global/theme";
 
 export type GuildProps = {
-    id:string;
-    name:string;
-    icon:string | null;
-    owner:boolean;
-}
+  id: string;
+  name: string;
+  icon: string | null;
+  owner: boolean;
+};
 
-type Props = TouchableOpacityProps &{
-    data: GuildProps
-}
+type Props = TouchableOpacityProps & {
+  data: GuildProps;
+};
 
-export function Guild({data, ...rest}: Props){
+export function Guild({ data, ...rest }: Props) {
   return (
-    <TouchableOpacity
-    style={styles.container}
-    activeOpacity = {0.7}
-    {...rest}
-    >
-        <GuildIcon />
+    <TouchableOpacity style={styles.container} activeOpacity={0.7} {...rest}>
+      <GuildIcon />
 
-        <View style={styles.content}>
+      <View style={styles.content}>
+        <View>
+          <Text style={styles.title}>{data.name}</Text>
 
-            <View>
-                <Text style={styles.title}>
-                    {data.name}
-                </Text>
-
-                <Text style={styles.type}>
-                    {data.owner ? 'Administrator' : 'Convidado'}
-                </Text>
-            </View>
-            
+          <Text style={styles.type}>
+            {data.owner ? "Administrator" : "Convidado"}
+          </Text>
         </View>
+      </View>
 
-        <Feather
-        name = 'chevron-right'
-        size={24}
-        color = {theme.colors.heading}
-        />
-
+      <Feather name="chevron-right" size={24} color={theme.colors.heading} />
     </TouchableOpacity>
   );
 }

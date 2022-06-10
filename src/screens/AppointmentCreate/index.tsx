@@ -24,34 +24,35 @@ import { Guilds } from "../Guilds";
 import { GuildProps } from "../../components/Guild";
 import { GuildIcon } from "../../components/GuildIcon";
 
-
-
-
 export function AppointmentCreate() {
   const [category, setCategory] = useState("");
   const [openGuildsModal, setOpenGuildsModal] = useState(false);
   const [guild, setGuild] = useState<GuildProps>({} as GuildProps);
 
-  function handleOpenGuilds(){
+  function handleOpenGuilds() {
     setOpenGuildsModal(true);
-  }  
+  }
 
-  function handleGuildSelect(guildSelect: GuildProps){
+  function handleGuildSelect(guildSelect: GuildProps) {
     setGuild(guildSelect);
     setOpenGuildsModal(false);
   }
 
-  function handleCloseModal(){
+  function handleCloseModal() {
     setOpenGuildsModal(false);
-  } 
+  }
 
+  function handleCategorySelect(categoryId: string) {
+    setCategory(categoryId);
+  }
 
   return (
     <KeyboardAvoidingView
       style={styles.container}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <ScrollView>
+      <Background>
+        <ScrollView>
           <Header title="Agendar Partida" />
 
           <Text
@@ -66,7 +67,7 @@ export function AppointmentCreate() {
           <View>
             <CategorySelect
               hasCheckBox
-              setCategory={setCategory}
+              setCategory={handleCategorySelect}
               categorySelected={category}
             />
           </View>
@@ -74,13 +75,12 @@ export function AppointmentCreate() {
           <View style={styles.form}>
             <RectButton onPress={handleOpenGuilds}>
               <View style={styles.select}>
-            
-                {
-                  guild.icon ? <GuildIcon/> : <View style={styles.image} />
-                }
+                {guild.icon ? <GuildIcon /> : <View style={styles.image} />}
 
                 <View style={styles.selectBody}>
-                  <Text style={styles.label}>{guild.name ? guild.name : 'Selecione um Servidor'}</Text>
+                  <Text style={styles.label}>
+                    {guild.name ? guild.name : "Selecione um Servidor"}
+                  </Text>
                 </View>
 
                 <Feather
@@ -93,7 +93,9 @@ export function AppointmentCreate() {
 
             <View style={styles.field}>
               <View>
-                <Text style={styles.label}>Dia e Mês</Text>
+                <Text style={[styles.label, { marginBottom: 12 }]}>
+                  Dia e Mês
+                </Text>
                 <View style={styles.column}>
                   <SmallInput maxLength={2} />
                   <Text style={styles.divider}>/</Text>
@@ -102,7 +104,9 @@ export function AppointmentCreate() {
               </View>
 
               <View>
-                <Text style={styles.label}>Hora e Minuto</Text>
+                <Text style={[styles.label, { marginBottom: 12 }]}>
+                  Hora e Minuto
+                </Text>
                 <View style={styles.column}>
                   <SmallInput maxLength={2} />
                   <Text style={styles.divider}>:</Text>
@@ -112,7 +116,7 @@ export function AppointmentCreate() {
             </View>
           </View>
 
-          <View style={styles.description}>
+          <View>
             <ListHeader title="Descrição" subtitle="Max 100 Caracteres" />
             <View style={styles.textArea}>
               <TextArea
@@ -127,12 +131,12 @@ export function AppointmentCreate() {
           <View style={styles.footer}>
             <Button title="Agendar" />
           </View>
-      </ScrollView>
+        </ScrollView>
+      </Background>
 
-       <ModalView visible={openGuildsModal} closeModal={handleCloseModal}>
-          <Guilds handleGuildSelect={handleGuildSelect}/>
-      </ModalView> 
-
+      <ModalView visible={openGuildsModal} closeModal={handleCloseModal}>
+        <Guilds handleGuildSelect={handleGuildSelect} />
+      </ModalView>
     </KeyboardAvoidingView>
   );
 }
