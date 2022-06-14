@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 
 import { LinearGradient } from "expo-linear-gradient";
 
@@ -6,7 +6,7 @@ import { styles } from "./styles";
 import { theme } from "../../global/theme";
 
 type Props = {
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
 export function Background({ children }: Props) {
